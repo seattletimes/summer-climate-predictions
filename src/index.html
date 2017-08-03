@@ -7,9 +7,66 @@
   <body>
 
     <responsive-child>
-      <!-- content goes here -->
+      <main class="interactive">
+        <h1>Insert headline here</h1>
+        <div class="chatter"> Insert chatter here </div>
+         <div class="container">
+           <div class="mapContainer">
+           <%= t.include("assets/normal.svg") %>
+             <div class="legend">
+                <div class="swatch" style="background: #f9d057">
+                  <div class="number">Lowest</div>
+                </div>
+                <div class="swatch" style="background: #f29e2e">
+                  <div class="number">Low</div>
+                </div>
+                <div class="swatch" style="background: #e66818">
+                  <div class="number">Medium</div>
+                </div>
+                <div class="swatch" style="background: #d7191c">
+                  <div class="number">High</div>
+                </div>
+              </div>
+           </div>
+           <div class="tooltipContainer">
+             <div class="nav">
+               <select class="emissions">
+                 <option value="4.5"> Moderate </option>
+                 <option value="8.5"> High </option>
+                </select>
+                <select class="period">
+                  <option value="1981-2010"> 1981-2010 </option>
+                  <option value="2020-2039"> 2020-2039 </option>
+                  <option value="2040-2059"> 2040-2059 </option>
+                  <option value="2080-2099"> 2080-2099 </option>
+                 </select>
+              </div>
+             <table>
+                <tr>
+                  <th>Period</th>
+                  <th>Emissions</th>
+                  <th>p50</th>
+                </tr>
+                <tr>
+                  <td>Value</td>
+                  <td>Value</td>
+                  <td>Value</td>
+                </tr>
+              </table>
+           </div>
+         </div>
+         <div class="source">
+            Source: Rhodium Group
+          </div>
+          <div class="note">
+            Note: Data shown is taken from the median (50th) percentile of projections.
+          </div>
+          <div class="credit">
+            Ellis Simani and Thomas Wilburn / The Seattle Times
+          </div>
+    </main>
     </responsive-child>
-
+    <script> window.climateData = <%= JSON.stringify(csv.counties) %> </script>
     <script src="app.js" async></script>
     <% if (json.project.production) { %>
     <%= !json.project.embedded ? t.include("partials/_analytics.html") : "" %>
