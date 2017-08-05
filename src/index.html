@@ -8,58 +8,58 @@
 
     <responsive-child>
       <main class="interactive">
-        <h1>Insert headline here</h1>
-        <div class="chatter"> Insert chatter here </div>
+        <h1>How hot will it get?</h1>
+        <div class="chatter"> Click on a Washington county to see projections for the number of days temperatures will rise to 95 degrees or higher in the future. Moderate values reflect projections for temperatures if countries take some steps to address emissions. The measure roughly corresponds to what countries agreed to in the Paris climate deal. The high emissions scenario assumes steady population growth and only modest action on climate change.  </div>
+        <div class="nav">
+            <div class="row">
+              <input type="radio" name="emissions" id="4.5" checked="checked">
+              <label for="4.5">Moderate</label>
+              <input type="radio" name="emissions" id="8.5">
+              <label for="8.5">High</label>
+            </div>
+            <div class="row">
+              <input type="radio" name="period" id="1981-2010" checked="checked">
+              <label for="1981-2010">1981-2010</label>
+              <input type="radio" name="period" id="2020-2039">
+              <label for="2020-2039">2020-2039</label>
+              <input type="radio" name="period" id="2040-2059">
+              <label for="2040-2059">2040-2059</label>
+              <input type="radio" name="period" id="2080-2099">
+              <label for="2080-2099">2080-2099</label>
+           </div>
+         </div>
          <div class="container">
            <div class="mapContainer">
-           <%= t.include("assets/normal.svg") %>
+             <div class="svg-aspect">
+               <%= t.include("assets/normal.svg") %>
+             </div>
+            <div class="legend-label"><strong>Projected number of days over 95&deg;F:</strong></div>
              <div class="legend">
                 <div class="swatch" style="background: #f9d057">
-                  <div class="number">Lowest</div>
+                  <div class="number"> >10 </div>
                 </div>
                 <div class="swatch" style="background: #f29e2e">
-                  <div class="number">Low</div>
+                  <div class="number"> >30 </div>
                 </div>
                 <div class="swatch" style="background: #e66818">
-                  <div class="number">Medium</div>
+                  <div class="number"> >50 </div>
                 </div>
                 <div class="swatch" style="background: #d7191c">
-                  <div class="number">High</div>
+                  <div class="number"> Over 50 </div>
                 </div>
               </div>
            </div>
            <div class="tooltipContainer">
-             <div class="nav">
-               <select class="emissions">
-                 <option value="4.5"> Moderate </option>
-                 <option value="8.5"> High </option>
-                </select>
-                <select class="period">
-                  <option value="1981-2010"> 1981-2010 </option>
-                  <option value="2020-2039"> 2020-2039 </option>
-                  <option value="2040-2059"> 2040-2059 </option>
-                  <option value="2080-2099"> 2080-2099 </option>
-                 </select>
+              <div class="table">
+                Click or tap on a county for more information.
               </div>
-             <table>
-                <tr>
-                  <th>Period</th>
-                  <th>Emissions</th>
-                  <th>p50</th>
-                </tr>
-                <tr>
-                  <td>Value</td>
-                  <td>Value</td>
-                  <td>Value</td>
-                </tr>
-              </table>
            </div>
          </div>
          <div class="source">
-            Source: Rhodium Group
+            Source: Climate Impact Lab
           </div>
           <div class="note">
-            Note: Data shown is taken from the median (50th) percentile of projections.
+            Note: Future temperatures were determined using the median (50th) percentile of projections.
           </div>
           <div class="credit">
             Ellis Simani and Thomas Wilburn / The Seattle Times

@@ -14,9 +14,6 @@
 
      <div class="text">
        There were an average of <strong><%= allYears[0].toFixed(1) %></strong> days per year above 95&deg;F in <%= data.county.replace("_", " ") %> County from 1981-2010.
-       <% if (data.period != "1981-2010") { %>
-         Under the <%= scenario %> scenario, temperatures will rise above 95&deg;F <strong><%= percentile %></strong> days out of the year during this period. 
-       <% } %>
      </div>
     <% console.log(allYears); %>
     <% }); %>

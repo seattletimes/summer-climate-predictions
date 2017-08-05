@@ -6,6 +6,7 @@ require("component-responsive-frame/child");
 var dot = require("./lib/dot");
 var $ = require("./lib/qsa");
 var tooltipTemplate = dot.compile(require("./_tooltip.html"));
+var tooltipTemplateCurrent = dot.compile(require("./_tooltip2.html"));
 
 var predictions = { "4.5": [], "8.5": [] };
 
@@ -19,36 +20,47 @@ var periodSelect = $.one("select.period");
 
 var svg = $.one("svg");
 
+var lastClicked = null;
+
+var getValues = function() {
+  var emissions = $.one(`input[name="emissions"]:checked`).id;
+  var period = $.one(`input[name="period"]:checked`).id;
+  return { emissions, period };
+}
+
 var paint = function() {
-  var bucket = predictions[emissionsSelect.value];
-  var period = periodSelect.value;
+  var { emissions, period } = getValues();
+  console.log(emissions, period);
+  var bucket = predictions[emissions];
   bucket.forEach(function(row) {
     if (row.period != period) return;
     var element = $.one(`#${row.county.replace(" ", "_")}`);
     if (!element) return console.log(`Couldn't find ${row.county}`);
-    element.setAttribute("class", row.p50 < 10 ? "lowest" : row.p50 < 30 ? "low" : row.p50 < 50 ? "medium" : "high");
-  })
+    element.setAttribute("class", row.p50 < 10.1 ? "lowest" : row.p50 < 30.1 ? "low" : row.p50 < 50.1 ? "medium" : "high");
+  });
+  if (lastClicked) setTooltip(lastClicked);
 };
 
-var tooltipContainer = $.one(".tooltipContainer");
+var table = $.one(".table");
 
-// for (var p in predictions) {
-//   var county = predictions[p];
-//   tooltipContainer.innerHTML = tooltipTemplate({county});
-// }
-
-emissionsSelect.addEventListener("change", paint);
-periodSelect.addEventListener("change", paint);
+$.one(".nav").addEventListener("change", paint);
 paint();
+
+var setTooltip = function(id) {
+  var { emissions, period } = getValues();
+  var bucket = predictions[emissions];
+  var matching = bucket.filter(r => r.county.replace(" ", "_") == id);
+  var html = tooltipTemplate({ county: id, emissionValue: emissions, rows: matching, period });
+  table.innerHTML = html;
+  lastClicked = id;
+}
 
 var onClick = function(e) {
   e.stopPropagation();
   var id = this.id;
-  var emission = emissionsSelect.value;
-  var bucket = predictions[emission];
-  var matching = bucket.filter(r => r.county == id);
-  var html = tooltipTemplate({ county: id, rows: matching });
-  tooltipContainer.innerHTML = html;
+  setTooltip(id);
+  console.log(matching);
+  // console.log(year);
 };
 
 $("[id]", svg).forEach(el => el.addEventListener("click", onClick));
